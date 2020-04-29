@@ -1,0 +1,1 @@
+GitHub Actions の雛形を作る。
