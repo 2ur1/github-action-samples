@@ -5,6 +5,7 @@ on:
     - labeled
 jobs:
   approved_pr_job:
+    # run when 'deploy-stg' is labeled
     if: github.event.label.name == 'deploy-stg'
     runs-on: ubuntu-latest
     name: deploy to staging server
