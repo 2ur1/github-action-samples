@@ -15,3 +15,16 @@ jobs:
     # Runs a single command using the runners shell
     - name: Run a one-line script
       run: echo Hello, world! ${{ github.event.label.name }}
+    - name: Create comments
+      run: |
+        echo ${{ github.event.label.name }} のタグを追加したんだってさ。 >> comments
+
+    - name: Post multi-line comments
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        URL: ${{ github.event.pull_request.comments_url }}
+      run: |
+        curl -X POST \
+             -H "Authorization: token ${GITHUB_TOKEN}" \
+             -d "{\"body\": \"$(cat comments)\"}" \
+             ${URL}
